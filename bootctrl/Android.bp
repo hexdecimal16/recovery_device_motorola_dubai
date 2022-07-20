@@ -26,5 +26,3 @@ cc_library_shared {
     defaults: ["android.hardware.boot@1.1-impl-qti_defaults"],
     static_libs: ["libgptutils.dubai"],
 }
-Footer
-
