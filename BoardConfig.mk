@@ -71,7 +71,7 @@ TARGET_KERNEL_SOURCE := kernel/motorola/dubai
 TARGET_KERNEL_CONFIG := dubai_defconfig
 TARGET_FORCE_PREBUILT_KERNEL := true
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/dtbo.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 
 # Platform
 TARGET_BOARD_PLATFORM := lahaina
