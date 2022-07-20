@@ -59,16 +59,53 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Kernel
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_CMDLINE := None
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
-BOARD_BOOTIMG_HEADER_VERSION := 3
+BOARD_BOOT_HEADER_VERSION := 3
 BOARD_INCLUDE_RECOVERY_DTBO := true
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+# BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+# BOARD_KERNEL_SEPARATED_DTBO := true
+
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+
+BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0
+BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom
+BOARD_KERNEL_CMDLINE += androidboot.memcg=1
+# BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3
+BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem,nosocket
+BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200n8
+BOARD_KERNEL_CMDLINE += earlycon=msm_geni_serial,0x880000
+BOARD_KERNEL_CMDLINE += ip6table_raw.raw_before_defrag=1
+BOARD_KERNEL_CMDLINE += iptable_raw.raw_before_defrag=1
+BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237
+BOARD_KERNEL_CMDLINE += pcie_ports=compat
+BOARD_KERNEL_CMDLINE += service_locator.enable=1
+BOARD_KERNEL_CMDLINE += swiotlb=0
+BOARD_KERNEL_CMDLINE += video=vfb:640x400,bpp=32,memsize=3072000
+
+BOARD_KERNEL_CMDLINE := \
+    androidboot.hardware=qcom \
+    androidboot.memcg=1 \
+    lpm_levels.sleep_disabled=1 \
+    video=vfb:640x400,bpp=32,memsize=3072000 \
+    msm_rtb.filter=0x237 \
+    service_locator.enable=1 \
+    androidboot.usbcontroller=a600000.dwc3 \
+    swiotlb=0 \
+    loop.max_part=7 \
+    cgroup.memory=nokmem,nosocket \
+    pcie_ports=compat \
+    loop.max_part=7 \
+    iptable_raw.raw_before_defrag=1 \
+    ip6table_raw.raw_before_defrag=1
+
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+# BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/motorola/dubai
 TARGET_KERNEL_CONFIG := dubai_defconfig
+
 TARGET_FORCE_PREBUILT_KERNEL := true
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
