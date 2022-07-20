@@ -18,7 +18,7 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := dubai
-PRODUCT_NAME := omni_dubai
+PRODUCT_NAME := twrp_dubai
 PRODUCT_BRAND := motorola
 PRODUCT_MODEL := moto edge 30 5G
 PRODUCT_MANUFACTURER := motorola
