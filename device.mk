@@ -40,18 +40,32 @@ PRODUCT_PACKAGES_DEBUG += \
     
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl \
-    android.hardware.boot@1.1-service \
-    android.hardware.boot@1.1-impl-wrapper.recovery \
-    android.hardware.boot@1.1-impl-wrapper \
     android.hardware.boot@1.1-impl.recovery \
-    bootctrl.lahaina \
-    bootctrl.lahaina.recovery
+    android.hardware.boot@1.1-service
 
+PRODUCT_PACKAGES += \
+    libz \
+    libcutils
+    
+#  Health
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.1-impl.recovery \
+    android.hardware.health@2.1-service
+    
 # fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     fastbootd
+    
+
+# qcom decryption
+PRODUCT_PACKAGES += \
+    qcom_decrypt \
+    qcom_decrypt_fbe
+
+# tzdata
+PRODUCT_PACKAGES += \
+    tzdata_twrp
     
 # Screen
 TARGET_SCREEN_HEIGHT := 2400
@@ -62,3 +76,36 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/qcom-caf/bootctrl \
     vendor/qcom/opensource/commonsys-intf/display
+    
+    
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 127
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+
+PRODUCT_PACKAGES += \
+    qcom_decrypt \
+    qcom_decrypt_fbe
+
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko goodix_brl_mmi.ko mmi_charger.ko touchscreen_mmi.ko"
+
+TARGET_RECOVERY_DEVICE_MODULES += \
+    libdisplayconfig.qti \
+    libion \
+    libxml2 \
+    vendor.display.config@1.0 \
+    vendor.display.config@2.0 \
+    libdisplayconfig.qti
+
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
+
